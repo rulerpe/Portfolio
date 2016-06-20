@@ -4,7 +4,7 @@ angular
 
 projectsFactory.$inject = ['$http'];
 
-function projectFactory($http){
+function projectsFactory($http){
 	return {
 		all: all,
 		get: get

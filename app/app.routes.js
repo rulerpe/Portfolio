@@ -6,7 +6,10 @@ config.$inject = ['$routeProvider'];
 function config($routeProvider){
 	$routeProvider
 		.when('/', {
-			template: '<home-page></home-page>'
+			resolve: {
+				projects: projectsPrepFactory
+			},
+			template: '<home-page projects=$resolve.projects></home-page>'
 		})
 		.when('/about', {
 			template: '<about-page></about-page>'
@@ -23,4 +26,15 @@ function config($routeProvider){
 		.otherwise({
 			redirectTo: '/error'
 		});
+}
+
+projectsPrepFactory.$inject = ['projectsFactory'];
+
+function projectsPrepFactory(projectsFactory) {
+	return projectsFactory
+		.all()
+		.then(function(response){
+			console.log(response.data);
+			return response.data;
+		})
 }
